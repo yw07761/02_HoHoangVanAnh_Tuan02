@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variable Name Converter</title>
+</head>
+
+<body>
+    <h1>Variable Name Converter</h1>
+    <textarea id="inputText" rows="5" cols="40"></textarea>
+    <button id="convertButton">Convert</button>
+    <div id="output"></div>
+
+    <script>
+        const inputText = document.getElementById('inputText');
+        const convertButton = document.getElementById('convertButton');
+        const output = document.getElementById('output');
+
+        convertButton.addEventListener('click', () => {
+            const text = inputText.value;
+            const variableNames = text.split('\n');
+
+            output.innerHTML = '';
+
+            variableNames.forEach((name) => {
+                const words = name.trim().split('_');
+                let camelCaseName = words[0];
+
+                for (let i = 1; i < words.length; i++) {
+                    camelCaseName += words[i][0].toUpperCase() + words[i].slice(1);
+                }
+
+                const result = `${camelCaseName} ${'✅'.repeat(words.length - 1)}`;
+                output.innerHTML += result + '<br>';
+            });
+        });
+    </script>
+</body>
+
+</html>

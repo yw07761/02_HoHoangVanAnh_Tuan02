@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poll App</title>
+</head>
+
+<body>
+    <h1>Poll Question</h1>
+    <p>What is your favorite programming language?</p>
+
+    <button id="answerButton">Answer Poll</button>
+    <button id="displayButton">Display Results</button>
+
+    <script>
+        const poll = {
+            question: 'What is your favourite programming language?',
+            options: ['JavaScript', 'Python', 'Rust', 'C++'],
+            answers: new Array(4).fill(0),
+
+            registerNewAnswer() {
+                const input = Number(
+                    prompt(
+                        `${this.question}\n${this.options.join('\n')}\n(Write option number)`
+                    )
+                );
+
+                if (
+                    Number.isInteger(input) &&
+                    input >= 0 &&
+                    input < this.options.length
+                ) {
+                    this.answers[input]++;
+                    this.displayResults();
+                } else {
+                    alert('Invalid input. Please enter a valid option number.');
+                }
+            },
+
+            displayResults(type = 'array') {
+                if (type === 'array') {
+                    console.log(this.answers);
+                } else if (type === 'string') {
+                    console.log(`Poll results are ${this.answers.join(', ')}`);
+                }
+            },
+        };
+
+        const answerButton = document.getElementById('answerButton');
+        const displayButton = document.getElementById('displayButton');
+
+        answerButton.addEventListener('click', () => {
+            poll.registerNewAnswer();
+        });
+
+        displayButton.addEventListener('click', () => {
+            poll.displayResults('string');
+        });
+    </script>
+</body>
+
+</html>

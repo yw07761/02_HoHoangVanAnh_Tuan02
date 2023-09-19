@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Game Events</title>
+</head>
+
+<body>
+    <h1>Football Game Events</h1>
+    <div id="output"></div>
+
+    <script>
+        // Game events log
+        const gameEvents = new Map([
+            [17, '⚽ GOAL'],
+            [36, '🔁 Substitution'],
+            [47, '⚽ GOAL'],
+            [65, '🔶 Yellow card'],
+            [69, '🔴 Red card'],
+            [70, '🔁 Substitution'],
+            [72, '🔁 Substitution'],
+            [76, '⚽ GOAL'],
+            [80, '⚽ GOAL'],
+            [92, '🔴 Red card'],
+        ]);
+
+        // Task 1: Create an array of unique game events
+        const events = [...new Set(gameEvents.values())];
+
+        // Task 2: Remove the unfair yellow card event at minute 64
+        gameEvents.delete(65);
+
+        // Task 3: Calculate and log the average event occurrence interval
+        const totalMinutes = 90;
+        const averageInterval = totalMinutes / gameEvents.size;
+        console.log(`An event happened, on average, every ${averageInterval.toFixed(2)} minutes`);
+
+        // Task 4: Loop over gameEvents and log each element with first/second half indication
+        const output = document.getElementById('output');
+        for (const [minute, event] of gameEvents.entries()) {
+            const half = minute <= 45 ? 'FIRST HALF' : 'SECOND HALF';
+            output.innerHTML += `[${half}] ${minute}: ${event}<br>`;
+        }
+    </script>
+</body>
+
+</html>
