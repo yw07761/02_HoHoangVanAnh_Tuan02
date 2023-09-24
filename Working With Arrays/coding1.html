@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Coding Challenge #1</title>
+</head>
+<body>
+  <script>
+    function checkDogs(dogsJulia, dogsKate) {
+      // 1. Create a shallow copy of Julia's array and remove cat ages
+      const juliaCorrected = dogsJulia.slice();
+      juliaCorrected.splice(0, 1); // Remove the first element (cat)
+      juliaCorrected.splice(-2);   // Remove the last two elements (cats)
+
+      // 2. Create an array with both Julia's corrected and Kate's data
+      const allDogs = [...juliaCorrected, ...dogsKate];
+
+      // 3. Loop through the array and log whether each dog is an adult or a puppy
+      allDogs.forEach((age, index) => {
+        const dogType = age >= 3 ? 'adult' : 'puppy';
+        console.log(`Dog number ${index + 1} is an ${dogType}, and is ${age} years old.`);
+      });
+    }
+
+    // Test data 1
+    const dogsJulia1 = [3, 5, 2, 12, 7];
+    const dogsKate1 = [4, 1, 15, 8, 3];
+    checkDogs(dogsJulia1, dogsKate1);
+
+    // Test data 2
+    const dogsJulia2 = [9, 16, 6, 8, 3];
+    const dogsKate2 = [10, 5, 6, 1, 4];
+    checkDogs(dogsJulia2, dogsKate2);
+  </script>
+</body>
+</html>

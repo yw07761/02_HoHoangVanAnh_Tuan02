@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Coding Challenge #4</title>
+</head>
+<body>
+  <h1>Dog Study Results</h1>
+  <div id="results"></div>
+  <script>
+    // Dog data
+    const dogs = [
+      { weight: 22, curFood: 250, owners: ["Alice", "Bob"] },
+      { weight: 8, curFood: 200, owners: ["Matilda"] },
+      { weight: 13, curFood: 275, owners: ["Sarah", "John"] },
+      { weight: 32, curFood: 340, owners: ["Michael"] },
+    ];
+
+    // 1. Calculate recommended food portion and add it to each dog object
+    dogs.forEach((dog) => {
+      dog.recommendedFood = Math.trunc(dog.weight ** 0.75 * 28);
+    });
+
+    // 2. Find Sarah's dog and log if it's eating too much or too little
+    const sarahDog = dogs.find((dog) => dog.owners.includes('Sarah'));
+    let sarahResult = '';
+    if (sarahDog) {
+      if (sarahDog.curFood > sarahDog.recommendedFood) {
+        sarahResult = "Sarah's dog is eating too much.";
+      } else if (sarahDog.curFood < sarahDog.recommendedFood) {
+        sarahResult = "Sarah's dog is eating too little.";
+      } else {
+        sarahResult = "Sarah's dog is eating the recommended amount.";
+      }
+    }
+
+    // 3. Create arrays for owners of dogs eating too much and too little
+    const ownersEatTooMuch = dogs
+      .filter((dog) => dog.curFood > dog.recommendedFood)
+      .flatMap((dog) => dog.owners);
+
+    const ownersEatTooLittle = dogs
+      .filter((dog) => dog.curFood < dog.recommendedFood)
+      .flatMap((dog) => dog.owners);
+
+    // 4. Create a string for owners of dogs eating too much and too little
+    const tooMuchResult = `${[...new Set(ownersEatTooMuch)].join(' and ')}'s dogs eat too much!`;
+    const tooLittleResult = `${[...new Set(ownersEatTooLittle)].join(' and ')}'s dogs eat too little!`;
+
+    // 5. Check if any dog is eating the recommended amount
+    const anyDogEatingRecommended = dogs.some(
+      (dog) => dog.curFood === dog.recommendedFood
+    );
+
+    // 6. Check if any dog is eating an okay amount
+    const anyDogEatingOkay = dogs.some(
+      (dog) =>
+        dog.curFood > dog.recommendedFood * 0.9 &&
+        dog.curFood < dog.recommendedFood * 1.1
+    );
+
+    // 7. Create an array of dogs eating an okay amount
+    const dogsEatingOkayAmount = dogs.filter(
+      (dog) =>
+        dog.curFood > dog.recommendedFood * 0.9 &&
+        dog.curFood < dog.recommendedFood * 1.1
+    );
+
+    // 8. Create a shallow copy of the 'dogs' array and sort by recommended food portion
+    const dogsSortedByRecommendedFood = [...dogs].sort(
+      (a, b) => a.recommendedFood - b.recommendedFood
+    );
+
+    // Display results in the HTML
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = `
+      <p>${sarahResult}</p>
+      <p>${tooMuchResult}</p>
+      <p>${tooLittleResult}</p>
+      <p>Any dog eating the recommended amount: ${anyDogEatingRecommended}</p>
+      <p>Any dog eating an okay amount: ${anyDogEatingOkay}</p>
+      <p>Dogs eating an okay amount: ${dogsEatingOkayAmount.map((dog) => dog.owners.join(', ')).join(', ')}</p>
+      <p>Dogs sorted by recommended food portion: ${dogsSortedByRecommendedFood.map((dog) => `${dog.owners.join(' and ')} (${dog.recommendedFood}g)`).join(', ')}</p>
+    `;
+  </script>
+</body>
+</html>

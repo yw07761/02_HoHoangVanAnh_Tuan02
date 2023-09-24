@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Electric Car Acceleration and Charging_Coding Challenge #4</title>
+  <style>
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+
+    #carInfo {
+      margin: 20px auto;
+      width: 400px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f7f7f7;
+    }
+
+    p {
+      margin: 0;
+      padding: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Electric Car Acceleration and Charging</h1>
+  <div id="carInfo"></div>
+  <script>
+    // 1. Create a class 'CarCl'
+    class CarCl {
+      constructor(make, speed) {
+        this.make = make;
+        this.speed = speed;
+      }
+
+      // Update the 'brake' method
+      brake() {
+        this.speed -= 5;
+        const message = `${this.make} is braking. New speed: ${this.speed} km/h`;
+        console.log(message);
+        return message; // Return the message
+      }
+    }
+
+    // 2. Create a class 'EVCl' as a child class of 'CarCl'
+    class EVCl extends CarCl {
+      // Use naming convention for "private" property
+      #charge;
+
+      constructor(make, speed, charge) {
+        super(make, speed);
+        this.#charge = charge;
+      }
+
+      // Implement 'chargeBattery' method
+      chargeBattery(chargeTo) {
+        this.#charge = chargeTo;
+        const message = `${this.make}'s battery is charged to ${this.#charge}%`;
+        console.log(message);
+        return message; // Return the message
+      }
+
+      // Implement 'accelerate' method for Electric Car
+      accelerate() {
+        this.speed += 20;
+        this.#charge -= 1;
+        const message = `${this.make} going at ${this.speed} km/h, with a charge of ${this.#charge}%`;
+        console.log(message);
+        return message; // Return the message
+      }
+    }
+
+    // Create an Electric Car object
+    const rivian = new EVCl('Rivian', 120, 23);
+    const carInfoDiv = document.getElementById('carInfo');
+
+    // Display initial state
+    const initialMessage = `${rivian.make} going at ${rivian.speed} km/h, with a charge of ${rivian['#charge']}%`;
+    carInfoDiv.innerHTML += `<p>${initialMessage}</p>`;
+
+    // Chain the accelerate and chargeBattery methods
+    const accelerateMessage = rivian.accelerate();
+    const chargeMessage = rivian.chargeBattery(80);
+    const brakeMessage = rivian.brake();
+
+    // Display updated state
+    carInfoDiv.innerHTML += `<p>${accelerateMessage}</p>`;
+    carInfoDiv.innerHTML += `<p>${chargeMessage}</p>`;
+    carInfoDiv.innerHTML += `<p>${brakeMessage}</p>`;
+  </script>
+</body>
+</html>

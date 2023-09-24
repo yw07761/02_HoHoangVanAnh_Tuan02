@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Car Acceleration and Braking_Coding Challenge #1</title>
+  <style>
+    /* CSS cho tiêu đề */
+    h1 {
+      color: #333; /* Màu chữ đen */
+      text-align: center; /* Căn giữa tiêu đề */
+    }
+
+    /* CSS cho phần thông tin xe */
+    #carInfo {
+      margin: 20px auto; /* Canh giữa */
+      width: 400px; /* Độ rộng của phần thông tin */
+      padding: 10px;
+      border: 1px solid #ccc; /* Viền xung quanh */
+      background-color: #f7f7f7; /* Màu nền xám nhạt */
+    }
+
+    /* CSS cho đoạn văn bản */
+    p {
+      margin: 0;
+      padding: 5px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Car Acceleration and Braking</h1>
+  <div id="carInfo"></div>
+  <script>
+    // 1. Create a constructor function for 'Car'
+    function Car(make, speed) {
+      this.make = make;
+      this.speed = speed;
+    }
+
+    // 2. Implement the 'accelerate' method
+    Car.prototype.accelerate = function () {
+      this.speed += 10;
+      return `${this.make} is accelerating. New speed: ${this.speed} km/h`;
+    };
+
+    // 3. Implement the 'brake' method
+    Car.prototype.brake = function () {
+      this.speed -= 5;
+      return `${this.make} is braking. New speed: ${this.speed} km/h`;
+    };
+
+    // 4. Create two 'Car' objects
+    const car1 = new Car('BMW', 120);
+    const car2 = new Car('Mercedes', 95);
+
+    // Display the initial speeds
+    const carInfoDiv = document.getElementById('carInfo');
+    carInfoDiv.innerHTML += `<p>Initial speeds:</p>`;
+    carInfoDiv.innerHTML += `<p>${car1.make}: ${car1.speed} km/h</p>`;
+    carInfoDiv.innerHTML += `<p>${car2.make}: ${car2.speed} km/h</p>`;
+
+    // Test the 'accelerate' and 'brake' methods and display the results
+    carInfoDiv.innerHTML += `<p>${car1.accelerate()}</p>`;
+    carInfoDiv.innerHTML += `<p>${car1.accelerate()}</p>`;
+    carInfoDiv.innerHTML += `<p>${car1.brake()}</p>`;
+
+    carInfoDiv.innerHTML += `<p>${car2.accelerate()}</p>`;
+    carInfoDiv.innerHTML += `<p>${car2.brake()}</p>`;
+    carInfoDiv.innerHTML += `<p>${car2.brake()}</p>`;
+
+    // Display the final speeds
+    carInfoDiv.innerHTML += `<p>Final speeds:</p>`;
+    carInfoDiv.innerHTML += `<p>${car1.make}: ${car1.speed} km/h</p>`;
+    carInfoDiv.innerHTML += `<p>${car2.make}: ${car2.speed} km/h</p>`;
+  </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Coding Challenge #3</title>
+</head>
+<body>
+  <script>
+    const calcAverageHumanAge = (ages) =>
+      ages
+        .map((dogAge) => (dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4))
+        .filter((age) => age >= 18)
+        .reduce((total, age, index, array) => total + age / array.length, 0);
+
+    // Test data 1
+    const data1 = [5, 2, 4, 1, 15, 8, 3];
+    const averageAge1 = calcAverageHumanAge(data1);
+
+    // Test data 2
+    const data2 = [16, 6, 10, 5, 6, 1, 4];
+    const averageAge2 = calcAverageHumanAge(data2);
+
+    // Display the results on the webpage
+    const resultDiv = document.createElement("div");
+    resultDiv.innerHTML = `
+      <p>Average human age of adult dogs in Data 1: ${averageAge1}</p>
+      <p>Average human age of adult dogs in Data 2: ${averageAge2}</p>
+    `;
+    document.body.appendChild(resultDiv);
+  </script>
+</body>
+</html>

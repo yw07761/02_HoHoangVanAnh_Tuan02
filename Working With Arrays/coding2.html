@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Coding Challenge #2</title>
+</head>
+<body>
+  <script>
+    function calcAverageHumanAge(ages) {
+      // 1. Calculate the dog age in human years
+      const humanAges = ages.map((dogAge) =>
+        dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4
+      );
+
+      // 2. Exclude dogs less than 18 human years old (adult dogs)
+      const adultHumanAges = humanAges.filter((age) => age >= 18);
+
+      // 3. Calculate the average human age of all adult dogs
+      if (adultHumanAges.length > 0) {
+        const sumOfAges = adultHumanAges.reduce((total, age) => total + age, 0);
+        const averageAge = sumOfAges / adultHumanAges.length;
+        return averageAge;
+      } else {
+        return "No adult dogs found.";
+      }
+    }
+
+    // Test data 1
+    const data1 = [5, 2, 4, 1, 15, 8, 3];
+    const averageAge1 = calcAverageHumanAge(data1);
+
+    // Test data 2
+    const data2 = [16, 6, 10, 5, 6, 1, 4];
+    const averageAge2 = calcAverageHumanAge(data2);
+
+    // Display the results on the webpage
+    const resultDiv = document.createElement("div");
+    resultDiv.innerHTML = `
+      <p>Average human age of adult dogs in Data 1: ${averageAge1}</p>
+      <p>Average human age of adult dogs in Data 2: ${averageAge2}</p>
+    `;
+    document.body.appendChild(resultDiv);
+  </script>
+</body>
+</html>

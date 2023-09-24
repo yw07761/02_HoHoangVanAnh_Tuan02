@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Car Acceleration and Braking_Coding Challenge #2</title>
+  <style>
+    /* CSS for styling */
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+
+    #carInfo {
+      margin: 20px auto;
+      width: 400px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f7f7f7;
+    }
+
+    p {
+      margin: 0;
+      padding: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Car Acceleration and Braking</h1>
+  <div id="carInfo"></div>
+  <script>
+    class CarCl {
+      constructor(make, speed) {
+        this.make = make;
+        this.speed = speed;
+      }
+
+      get speedUS() {
+        return this.speed / 1.6;
+      }
+
+      set speedUS(speedInMilesPerHour) {
+        this.speed = speedInMilesPerHour * 1.6;
+      }
+
+      accelerate() {
+        this.speed += 10;
+        console.log(`${this.make} is accelerating. New speed: ${this.speed} km/h`);
+      }
+
+      brake() {
+        this.speed -= 5;
+        console.log(`${this.make} is braking. New speed: ${this.speed} km/h`);
+      }
+    }
+
+    const car1 = new CarCl('Ford', 120);
+    const carInfoDiv = document.getElementById('carInfo');
+
+    // Display the initial speed
+    carInfoDiv.innerHTML += `<p>${car1.make}'s initial speed: ${car1.speed} km/h</p>`;
+
+    // Accelerate and brake the car
+    car1.accelerate();
+    car1.brake();
+
+    // Display the speed in miles per hour
+    carInfoDiv.innerHTML += `<p>${car1.make}'s speed in miles per hour: ${car1.speedUS.toFixed(2)} mi/h</p>`;
+
+    // Update the speed using the setter
+    car1.speedUS = 75;
+    carInfoDiv.innerHTML += `<p>${car1.make}'s updated speed: ${car1.speed.toFixed(2)} km/h</p>`;
+  </script>
+</body>
+</html>
